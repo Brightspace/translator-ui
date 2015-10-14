@@ -1,0 +1,58 @@
+<section data-ng-controller="RepositoriesController">
+    <div class="page-header">
+        <h1>New Repository</h1>
+    </div>
+    <div class="container">
+        <form name="repositoryForm" class="form-horizontal" data-ng-submit="create(repositoryForm.$valid)" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">Name<span class="text-danger">*</span></label>
+                    <div class="control-group col-sm-6">
+                        <input type="text" data-ng-model="name" id="name" name="name" class="form-control" required />
+                        <span class="text-danger" data-ng-show="repositoryForm.name.$dirty && repositoryForm.name.$invalid">
+                            <span data-ng-show="repositoryForm.name.$error.required">Repository name is required.</name>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="repositoryType">Repository Type<span class="text-danger">*</span></label>
+                    <div class="controls col-sm-6">
+                        <select name="repositoryType" id="repositoryType" class="form-control" data-ng-model="type" required>
+                            <option value="fra" selected="true">Free-Range App</option>
+                            <option value="lms">LMS Tool</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="repoUrl">Repository URL<span class="text-danger">*</span></label>
+                    <div class="controls col-sm-6">
+                        <input id="repoUrl" name="repoUrl" type="text" data-ng-model="url" class="form-control" required />
+                        <span class="text-danger" data-ng-show="repositoryForm.repoUrl.$dirty && repositoryForm.repoUrl.$invalid">
+                            <span data-ng-show="repositoryForm.repoUrl.$error.required">Repository URL is required.</span>
+                            <!--<span data-ng-show="repositoryForm.repoUrl.$error.url">Repository URL must be a valid URL.</span>-->
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="filePath">Path to Language File</label>
+                    <div class="controls col-sm-6">
+                        <input id="filePath" type="text" data-ng-model="languagePath[0]" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="isActive">Is Active</label>                    
+                    <div class="controls checkbox col-sm-6">                        
+                        <input type="checkbox" id="isActive" data-ng-model="isActive" name="isActive" />                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" data-ng-disabled="repositoryForm.$invalid" class="btn btn-primary" value="Create" />
+                </div>
+				<div data-ng-show="error" class="alert alert-danger col-sm-8">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+
+        </form>
+    </div>
+</section>

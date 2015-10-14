@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Translate (Dev)</title>
+
+    <!-- Fav Icon -->
+    <link href="modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <!--Application CSS Files-->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="modules/core/css/core.css">
+
+</head>
+
+<body class="ng-cloak">
+<header data-ng-include="'modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+<section class="content">
+    <section class="container">
+
+        <section data-ui-view></section>
+
+    </section>
+</section>
+
+<!--Application JavaScript Files-->
+<script type="text/javascript" src="lib/angular/angular.js"></script>
+<script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
+<script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="lib/angular-ui-utils/ui-utils.js"></script>
+<script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script type="text/javascript" src="lib/ng-file-upload/ng-file-upload.js"></script>
+<script type="text/javascript" src="config.js"></script>
+<script type="text/javascript" src="application.js"></script>
+<script type="text/javascript" src="modules/core/core.client.module.js"></script>
+<script type="text/javascript" src="modules/repositories/repositories.client.module.js"></script>
+<script type="text/javascript" src="modules/translation/translation.client.module.js"></script>
+<script type="text/javascript" src="modules/core/config/core.client.routes.js"></script>
+<script type="text/javascript" src="modules/core/controllers/header.client.controller.js"></script>
+<script type="text/javascript" src="modules/core/controllers/home.client.controller.js"></script>
+<script type="text/javascript" src="modules/core/services/menus.client.service.js"></script>
+<script type="text/javascript" src="modules/repositories/config/repositories.client.config.js"></script>
+<script type="text/javascript" src="modules/repositories/config/repositories.client.routes.js"></script>
+<script type="text/javascript" src="modules/repositories/controllers/repositories.client.controller.js"></script>
+<script type="text/javascript" src="modules/repositories/services/repositories.client.service.js"></script>
+<script type="text/javascript" src="modules/translation/config/translation.client.routes.js"></script>
+<script type="text/javascript" src="modules/translation/controllers/translation.client.controller.js"></script>
+<script type="text/javascript" src="modules/translation/services/translations.client.service.js"></script>
+
+</body>
+
+</html>

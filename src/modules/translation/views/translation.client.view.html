@@ -1,0 +1,40 @@
+<section data-ng-controller="TranslationController" data-ng-init="findOne()">
+	<h1>{{translationPageTitle}}</h1>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-2">
+				<img src="modules/core/img/loaders/loader.gif">
+			</div>
+			<div class="col-sm-10">
+				<dl class="dl-horizontal">
+					<dt>Status</dt>
+					<dd>{{token.status}}</dd>
+				</dl>
+
+				<div class="alert alert-danger" data-ng-show="token.error">
+					<strong>Error!</strong>
+					{{token.error}}
+				</div>
+
+				<div data-ng-show="token.status=='exported'">
+					<a class="btn btn-primary" href="/download/{{token._id}}" download>Download Export Package...</a>
+				</div>
+
+				<div data-ng-show="token.status=='sent'">
+					<button type="file"
+							class="btn btn-primary"
+							ngf-select="beginImport($file)" >Import a Translation Package</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="alert alert-danger" data-ng-show="error">
+					<strong>Error!</strong>
+					{{error}}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
