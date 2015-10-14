@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-	"start": "node index.js"
+    "bundle": "mkdir ./src/dist && browserify --entry ./src/application.js --outfile ./src/dist/index.js",
+    "start": "npm run bundle && node index.js"
   },
   "private": true,
-  "author": ""
+  "author": "",
+  "devDependencies": {
+    "browserify": "^11.2.0"
+  }
 }
