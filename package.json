@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prebundle": "mkdir ./dist/",
-    "bundle": "browserify --entry ./src/application.js --outfile ./dist/index.js",
+    "bundle": "browserify --entry ./src/application.js --outfile ./dist/index.js -t envify",
     "start": "npm run bundle && npm run test && http-server",
     "test": "karma start"
   },
@@ -13,6 +13,7 @@
   "author": "",
   "devDependencies": {
     "browserify": "^11.2.0",
+    "envify": "^3.4.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.11",
     "karma-jasmine": "^0.3.6",
