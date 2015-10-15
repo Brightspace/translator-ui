@@ -3,6 +3,7 @@ FROM node:0.12
 WORKDIR /home/translator
 
 RUN npm install -g phantomjs
+RUN npm install -g http-server
 
 ADD package.json /home/translator/package.json
 RUN npm install

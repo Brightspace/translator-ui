@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebundle": "mkdir ./src/dist/",
-    "bundle": "browserify --entry ./src/application.js --outfile ./src/dist/index.js",
-    "start": "npm run bundle && npm run test && node index.js",
+    "prebundle": "mkdir ./dist/",
+    "bundle": "browserify --entry ./src/application.js --outfile ./dist/index.js",
+    "start": "npm run bundle && npm run test && http-server",
     "test": "karma start"
   },
   "private": true,
