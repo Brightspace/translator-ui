@@ -1,6 +1,6 @@
 'use strict';
 
-var applicationModuleName = 'mean';
+var applicationModuleName = 'translator';
 var applicationModuleVendorDependencies = ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.utils'];
 
 // Add a new vertical module

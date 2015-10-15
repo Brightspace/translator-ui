@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bundle": "mkdir ./src/dist && browserify --entry ./src/application.js --outfile ./src/dist/index.js",
-    "start": "npm run bundle && node index.js"
+    "prebundle": "mkdir ./src/dist/",
+    "bundle": "browserify --entry ./src/application.js --outfile ./src/dist/index.js",
+    "start": "npm run bundle && npm run test && node index.js",
+    "test": "karma start"
   },
   "private": true,
   "author": "",
   "devDependencies": {
-    "browserify": "^11.2.0"
+    "browserify": "^11.2.0",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.11",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1"
   }
 }
