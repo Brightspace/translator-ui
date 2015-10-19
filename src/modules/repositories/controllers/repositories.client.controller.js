@@ -5,10 +5,12 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 	function($scope, $stateParams, $location, Repositories) {
 		$scope.isActive = true;
 		$scope.type = 'fra';
+		$scope.error = '';
 
 		$scope.searchTerm = '';
 		$scope.filter = 'all';
         $scope.languagePath = [];
+		$scope.repoUrlPattern = /(\\w+:\/\/)?(.+@)*([\\w\\d\\.]+)(:[\\d]+){0,1}\/*(.*).git(\/)?/;
 
 		$scope.confirmDelete = function(repository) {
 			if( confirm('Are you sure you would like to delete ' + repository.name + '? This action cannot be undone.') ) {
