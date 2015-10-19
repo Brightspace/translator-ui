@@ -1,8 +1,8 @@
 'use strict';
 
 // Repositories controller
-angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories',
-	function($scope, $stateParams, $location, Repositories) {
+angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories', 'Translations',
+	function($scope, $stateParams, $location, Repositories, Translations) {
 		$scope.isActive = true;
 		$scope.type = 'fra';
 		$scope.error = '';
@@ -97,6 +97,14 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 				$location.path('repositories');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		$scope.beginTranslation = function() {
+			new Translations().$save(function(result) {
+				$location.path('translations/' + result.id);
+			}, function(error) {
+				$scope.error = 'Could not begin export process: ' + JSON.stringify(error);
 			});
 		};
 
