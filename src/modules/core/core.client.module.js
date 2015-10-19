@@ -8,4 +8,3 @@ ApplicationConfiguration.registerModule('core');
 require('./config/core.client.routes');
 require('./services/menus.client.service');
 require('./controllers/header.client.controller');
-require('./controllers/home.client.controller');
