@@ -40,6 +40,10 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 			return true;
 		};
 
+        $scope.getDownload = function() {
+            return process.env.BACKEND_URL + "/translations/" + $scope.token.id + "/download";
+        };
+
 		$scope.beginImport = function(file) {
 			if (file && !file.$error) {
 				Upload.upload({

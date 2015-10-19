@@ -20,10 +20,10 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="repoUrl">Repository URL<span class="text-danger">*</span></label>
                     <div class="controls col-sm-6">
-                        <input id="repoUrl" name="repoUrl" type="text" data-ng-model="repository.url" class="form-control" required />
+                        <input id="repoUrl" name="repoUrl" type="text" ng-pattern="repoUrlPattern" data-ng-model="repository.url" class="form-control" required />
                         <span class="text-danger" data-ng-show="repositoryForm.repoUrl.$dirty && repositoryForm.repoUrl.$invalid">
                             <span data-ng-show="repositoryForm.repoUrl.$error.required">Repository URL is required.</span>
-                            <!--<span data-ng-show="repositoryForm.repoUrl.$error.url">Repository URL must be a valid URL.</span>-->
+                            <span data-ng-show="repositoryForm.repoUrl.$error.pattern">Repository URL must be valid.</span>
                         </span>
                     </div>
                 </div>

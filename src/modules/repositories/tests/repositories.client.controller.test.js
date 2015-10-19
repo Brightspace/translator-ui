@@ -32,10 +32,6 @@
 		// Then we can start by loading the main application module
 		beforeEach(module('translator'));
 
-		beforeEach(module('repositories', function($provide) {
-			$provide.value('backendUrl', '');
-		}));
-
 		// The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
 		// This allows us to inject a service but then attach it to a variable
 		// with the same name as the service.
@@ -65,7 +61,7 @@
 				var sampleRepositories = [sampleRepository];
 
 				// Set GET response
-				$httpBackend.expectGET('repositories?filter=all&search=').respond(sampleRepositories);
+				$httpBackend.expectGET(/repositories\?filter=all&search=/).respond(sampleRepositories);
 
 				// Run controller functionality
 				scope.find();
@@ -119,7 +115,7 @@
                 scope.languagePath = sampleRepositoryPostData.languagePath;
 
 				// Set POST response
-				$httpBackend.expectPOST('repositories', sampleRepositoryPostData).respond(sampleRepositoryResponse);
+				$httpBackend.expectPOST(/repositories/, sampleRepositoryPostData).respond(sampleRepositoryResponse);
 
 				// Run controller functionality
 				scope.create();
@@ -156,7 +152,7 @@
                 scope.languagePath = sampleRepositoryPostData.languagePath;
 
                 // Set POST response
-                $httpBackend.expectPOST('repositories', sampleRepositoryPostData).respond(sampleRepositoryResponse);
+                $httpBackend.expectPOST(/repositories/, sampleRepositoryPostData).respond(sampleRepositoryResponse);
 
                 // Run controller functionality
                 scope.create();

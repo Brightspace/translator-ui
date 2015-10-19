@@ -8,6 +8,8 @@
 			</div>
 			<div class="col-sm-10">
 				<dl class="dl-horizontal">
+					<dt>ID</dt>
+					<dd>{{token.id}}</dd>
 					<dt>Status</dt>
 					<dd>{{token.status}}</dd>
 				</dl>
@@ -17,8 +19,8 @@
 					{{token.error}}
 				</div>
 
-				<div data-ng-show="token.status=='exported'">
-					<a class="btn btn-primary" href="/download/{{token._id}}" download>Download Export Package...</a>
+				<div data-ng-show="token.status=='sent'">
+					<a class="btn btn-primary" ng-href="{{getDownload()}}">Download Export Package...</a>
 				</div>
 
 				<div data-ng-show="token.status=='sent'">
