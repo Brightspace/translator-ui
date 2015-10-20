@@ -41,13 +41,13 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 		};
 
         $scope.getDownload = function() {
-            return process.env.BACKEND_URL + '/translations/' + $scope.token.id + '/download';
+            return (process.env.BACKEND_URL || '') + '/translations/' + $scope.token.id + '/download';
         };
 
 		$scope.beginImport = function(file) {
 			if (file && !file.$error) {
 				Upload.upload({
-					url: process.env.BACKEND_URL + '/translations/' + $stateParams.tokenId,
+					url: (process.env.BACKEND_URL || '') + '/translations/' + $stateParams.tokenId,
 					file: file
 				})
 				.then(function (response) {
