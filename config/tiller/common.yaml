@@ -2,19 +2,11 @@ exec: [ "service" , "nginx" , "start" ]
 
 data_sources:
   - file
-  - defaults
   - environment
   - environment_json
 
 template_sources:
   - file
-
-defaults:
-  nginx.conf.erb:
-    env_servers: {
-      host: 'backend',
-      port: '3000'
-    }
 
 environments:
   development:
