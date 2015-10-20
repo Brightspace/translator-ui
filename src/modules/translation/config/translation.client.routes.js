@@ -7,7 +7,7 @@ angular.module('translation').config(['$stateProvider',
 		$stateProvider
 		.state('translation', {
 			url: '/translations/:tokenId',
-			templateUrl: 'src/modules/translation/views/translation.client.view.html'
+			templateUrl: 'views/translation/translation.view.html'
 		});
 	}
 ]);
