@@ -7,15 +7,15 @@ angular.module('repositories').config(['$stateProvider',
 		$stateProvider
 		.state('listRepositories', {
 			url: '/repositories',
-			templateUrl: 'src/modules/repositories/views/list-repositories.client.view.html'
+			templateUrl: 'views/repository/list-repositories.view.html'
 		})
 		.state('createRepository', {
 			url: '/repositories/create',
-			templateUrl: 'src/modules/repositories/views/create-repository.client.view.html'
+			templateUrl: 'views/repository/create-repository.view.html'
 		})
 		.state('editRepository', {
 			url: '/repositories/:repositoryId/edit',
-			templateUrl: 'src/modules/repositories/views/edit-repository.client.view.html'
+			templateUrl: 'views/repository/edit-repository.view.html'
 		});
 	}
 ]);

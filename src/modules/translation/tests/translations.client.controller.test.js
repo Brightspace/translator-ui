@@ -156,7 +156,7 @@
 
 				var uploadFile = new WebKitBlobBuilder().getBlob();
 
-				$httpBackend.expectPOST(/import\/([0-9a-fA-F]{24})$/).respond(sampleTranslation);
+				$httpBackend.expectPOST(/translations\/([0-9a-fA-F]{24})$/).respond(sampleTranslation);
 
 				scope.beginImport(uploadFile);
 
