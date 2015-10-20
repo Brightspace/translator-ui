@@ -18,7 +18,7 @@ module.exports = function(config) {
             "https://cdnjs.cloudflare.com/ajax/libs/angular-ui-utils/0.1.1/angular-ui-utils.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.2/ui-bootstrap-tpls.js",
             "https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/7.2.1/ng-file-upload.js",
-            './dist/index.js',
+            './public/js/index.js',
             './src/**/*test.js'
         ],
 
