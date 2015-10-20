@@ -1,0 +1,31 @@
+FROM nginx
+
+WORKDIR /src
+
+# Install dependencies
+RUN apt-get update && apt-get install build-essential ruby curl sudo
+RUN gem install tiller
+
+# Remove the default Nginx configuration file
+RUN cp /etc/nginx/nginx.conf{,.original}
+
+# Bundle app source
+COPY . /src
+
+# Install app dependencies
+RUN cd /src; npm install
+
+# Build application js
+RUN npm run prebundle
+RUN npm run bundle
+
+RUN mkdir -p /var/www/public
+RUN cp /src/index.html /var/www/public/index.html
+RUN cp /src/dist/index.js /var/www/public/js/index.js
+
+EXPOSE 80
+
+# Set the default command to execute when creating a new container
+#CMD ["service", "nginx", "start"]
+
+CMD ["/usr/local/bin/tiller" , "-v"]
