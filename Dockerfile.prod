@@ -1,0 +1,36 @@
+FROM nginx:latest
+
+WORKDIR /src
+
+# Install dependencies
+RUN apt-get update && apt-get install ruby curl sudo build-essential -y
+RUN gem install tiller
+
+RUN curl --silent --location https://deb.nodesource.com/setup_0.12 | bash -
+RUN apt-get install nodejs -y
+
+# Use package.json
+COPY package.json /src/package.json
+
+# Install app dependencies
+RUN cd /src; npm install
+
+# Remove the default Nginx configuration file
+RUN cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.original
+
+# Bundle app source
+COPY . /src
+
+# Build application js
+RUN npm run bundle
+
+RUN mkdir -p /var/www
+RUN cp -R /src/public /var/www/public
+
+EXPOSE 80
+
+RUN rm -rf /src
+
+ADD ./config/tiller /etc/tiller
+
+CMD ["/usr/local/bin/tiller" , "-v"]

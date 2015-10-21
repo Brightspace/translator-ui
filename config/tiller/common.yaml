@@ -1,0 +1,25 @@
+exec: [ "service" , "nginx" , "start" ]
+
+data_sources:
+  - file
+  - environment
+  - environment_json
+
+template_sources:
+  - file
+
+environments:
+  development:
+     nginx.conf.erb:
+      target: /etc/nginx/nginx.conf
+      config: {}
+
+  staging:
+      nginx.conf.erb:
+        target: /etc/nginx/nginx.conf
+        config: {}
+
+  production:
+      nginx.conf.erb:
+        target: /etc/nginx/nginx.conf
+        config: {}
