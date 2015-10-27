@@ -1,90 +1,100 @@
 <section data-ng-controller="RepositoriesController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Repositories</h1>
+    <div class="row">
+        <div class="col-md-6 pull-left">
+            <h1>Repositories</h1>
+        </div>
+        <div class="col-md-6 pull-right export-translations">
+            <a class="btn btn-default btn-lg" ng-click="beginTranslation()">Export Translations</a>
+        </div>
+        <div class="pull-clear"></div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <a class="btn btn-default btn-lg" ng-click="beginTranslation()">Create a Package for Translation</a>
+        <div class="row search">
+            <div class="container">
+                <form name="searchForm" class="form-inline col-sm-12" novalidate>
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="search">Search</label>
+                                <div class="input-group">
+                                    <input type="text" id="search" class="form-control" data-ng-model="searchTerm" />
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" data-ng-click="find()">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                        <button class="btn btn-default" data-ng-click="clearSearch()">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="filterIsActive">Filter by</label>
+                                <div class="input-group">
+                                    <select id="filterIsActive" data-ng-model="filterIsActive" class="form-control">
+                                        <option value="">All repositories</option>
+                                        <option value="true">Only enabled</option>
+                                        <option value="false">Only disabled</option>
+                                    </select>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" data-ng-click="find()">
+                                            <span>Apply</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-clear"></div>
+                    </fieldset>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="container" style="min-height: 60px">
-        <form name="searchForm" class="form-inline col-sm-12" novalidate>
-            <fieldset>
-                <!--<div class="form-group">
-                    <label for="search">Search</label>
-                    <div class="input-group">
-                        <input type="text" id="search" class="form-control" data-ng-model="searchTerm" />
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" data-ng-click="find()">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                            <button class="btn btn-default" data-ng-click="clearSearch()">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>-->
-                <div class="form-group">
-                    <label for="filter">Filter by</label>
-                    <div class="input-group">
-                        <select id="filter" data-ng-model="filter" class="form-control">
-                            <option value="all">All repositories</option>
-                            <option value="enabled">Only enabled</option>
-                            <option value="disabled">Only disabled</option>
-                        </select>
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" data-ng-click="find()">
-                                <span>Apply</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
 
-    <div data-ng-repeat="repository in repositories" class="col-sm-6">
-        <div data-ng-class="{'panel panel-success': repository.isActive, 'panel panel-danger': !repository.isActive}">
 
-            <div class="panel-heading" data-ng-class="panel">
-                <ul class="list-inline">
-                    <li>
-                        <h4 data-ng-bind="repository.name"></h4>
-                    </li>
-                    <li class="text-right">
-                        <ul class="list-inline">
-                            <li>
-                                <a data-ng-click="toggleActive(repository)">
+        <div data-ng-repeat="repository in repositories" class="col-sm-6">
+            <div data-ng-class="{'panel panel-success': repository.isActive, 'panel panel-danger': !repository.isActive}">
+
+                <div class="panel-heading" data-ng-class="panel">
+                    <ul class="list-inline">
+                        <li>
+                            <h4 data-ng-bind="repository.name"></h4>
+                        </li>
+                        <li class="text-right">
+                            <ul class="list-inline">
+                                <li>
+                                    <a data-ng-click="toggleActive(repository)">
                                     <span data-ng-class="{'glyphicon glyphicon-stop': repository.isActive, 'glyphicon glyphicon-play': !repository.isActive}">
                                     </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a data-ng-href="#!/repositories/{{repository.id }}/edit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a alt="Delete {{repository.name}}" data-ng-click="confirmDelete(repository)">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="panel-body">
-    			<dl class="dl-horizontal">
-                    <dt>Repository Type</dt>
-                    <dd>{{repositoryTypeToString(repository.type)}}</dd>
-                    <dt>Repository URL</dt>
-                    <dd>{{repository.url}}</dd>
-                    <dt>Path to language file</dt>
-                    <dd>{{repository.languagePath[0]}}</dd>
-                    <dt>Last Diffed:</dt>
-                    <dd>{{repository.lastDiffed ? repository.lastDiffed : 'never'}}</dd>
-                </dl>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-ng-href="#!/repositories/{{repository.id }}/edit">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a alt="Delete {{repository.name}}" data-ng-click="confirmDelete(repository)">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Repository Type</dt>
+                        <dd>{{repositoryTypeToString(repository.type)}}</dd>
+                        <dt>Repository URL</dt>
+                        <dd>{{repository.url}}</dd>
+                        <dt>Path to language file</dt>
+                        <dd>{{repository.languagePath[0]}}</dd>
+                        <dt>Last Diffed:</dt>
+                        <dd>{{repository.lastDiffed ? repository.lastDiffed : 'never'}}</dd>
+                    </dl>
 
                 <span data-ng-class="{'text-danger': !repository.isActive, 'ng-hide': repository.isActive}">
                     <strong>This repository is inactive and will not be checked for changes to languages.</strong>
@@ -92,19 +102,22 @@
                 <span data-ng-class="{'text-success': repository.isActive, 'ng-hide': !repository.isActive}">
                     <strong>This repository is active. Changes to the language file(s) will be checked regularly.</strong>
                 </span>
-            </div>
-
-            <div class="panel-footer">
-                <small class="list-group-item-text">
-                    Posted on
-                    <span data-ng-bind="repository.created | date:'medium'"></span>
-                    by
-                    <span data-ng-bind="repository.user.displayName"></span>
-                </small>
+                </div>
+                <!--
+                <div class="panel-footer">
+                    <small class="list-group-item-text">
+                        Posted on
+                        <span data-ng-bind="repository.created | date:'medium'"></span>
+                        by
+                        <span data-ng-bind="repository.user.displayName"></span>
+                    </small>
+                </div>
+                -->
             </div>
         </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!repositories.$resolved || repositories.length">
+            No Repositories found, why don't you <a href="/#!/repositories/create">create one</a>?
+        </div>
     </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!repositories.$resolved || repositories.length">
-    	No Repositories found, why don't you <a href="/#!/repositories/create">create one</a>?
-    </div>
+
 </section>
