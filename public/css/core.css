@@ -13,3 +13,23 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+
+.export-translations {
+	padding: 20px 0 20px 0;
+}
+
+fieldset .row {
+	padding: 5px 0 5px 0;
+}
+
+.pull-right {
+	float: right !important;
+}
+
+.pull-left {
+	float: left !important;
+}
+
+.pull-clear {
+	float: none;
+}
