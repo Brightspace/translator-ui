@@ -10,7 +10,7 @@
     <div class="container" style="min-height: 60px">
         <form name="searchForm" class="form-inline col-sm-12" novalidate>
             <fieldset>
-                <!--<div class="form-group">
+                <div class="form-group">
                     <label for="search">Search</label>
                     <div class="input-group">
                         <input type="text" id="search" class="form-control" data-ng-model="searchTerm" />
@@ -23,14 +23,14 @@
                             </button>
                         </div>
                     </div>
-                </div>-->
+                </div>
                 <div class="form-group">
-                    <label for="filter">Filter by</label>
+                    <label for="filterIsActive">Filter by</label>
                     <div class="input-group">
-                        <select id="filter" data-ng-model="filter" class="form-control">
-                            <option value="all">All repositories</option>
-                            <option value="enabled">Only enabled</option>
-                            <option value="disabled">Only disabled</option>
+                        <select id="filterIsActive" data-ng-model="filterIsActive" class="form-control">
+                            <option value="">All repositories</option>
+                            <option value="true">Only enabled</option>
+                            <option value="false">Only disabled</option>
                         </select>
                         <div class="input-group-btn">
                             <button class="btn btn-default" data-ng-click="find()">

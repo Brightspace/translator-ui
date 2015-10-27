@@ -2,24 +2,24 @@
 
 // Repositories controller
 angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories', 'Translations',
-	function($scope, $stateParams, $location, Repositories, Translations) {
+	function ( $scope, $stateParams, $location, Repositories, Translations ) {
 		$scope.isActive = true;
 		$scope.type = 'fra';
 		$scope.error = '';
 
 		$scope.searchTerm = '';
-		$scope.filter = 'all';
-        $scope.languagePath = [];
+		$scope.filterIsActive = '';
+		$scope.languagePath = [];
 		$scope.repoUrlPattern = /(\\w+:\/\/)?(.+@)*([\\w\\d\\.]+)(:[\\d]+){0,1}\/*(.*).git(\/)?/;
 
-		$scope.confirmDelete = function(repository) {
-			if( confirm('Are you sure you would like to delete ' + repository.name + '? This action cannot be undone.') ) {
+		$scope.confirmDelete = function ( repository ) {
+			if (confirm('Are you sure you would like to delete ' + repository.name + '? This action cannot be undone.')) {
 				$scope.remove(repository);
 			}
 		};
 
-		$scope.repositoryTypeToString = function(type) {
-			switch(type) {
+		$scope.repositoryTypeToString = function ( type ) {
+			switch (type) {
 				case 'fra':
 					return 'Free Range App';
 
@@ -31,15 +31,15 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 			}
 		};
 
-		$scope.clearSearch = function() {
+		$scope.clearSearch = function () {
 			$scope.searchTerm = '';
 			$scope.find();
 		};
 
 		// Create new Repository
-		$scope.create = function() {
+		$scope.create = function () {
 			// Create new Repository object
-			var repository = new Repositories ({
+			var repository = new Repositories({
 				name: this.name,
 				type: this.type,
 				url: this.url,
@@ -48,7 +48,7 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 			});
 
 			// Redirect after save
-			repository.$save(function() {
+			repository.$save(function () {
 				// Clear form fields
 				$scope.name = '';
 				$scope.type = 'fra';
@@ -56,25 +56,25 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 				$scope.isActive = true;
 				$scope.languagePath = [];
 				$location.path('repositories');
-			}, function(errorResponse) {
+			}, function ( errorResponse ) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
 
-		$scope.toggleActive = function(repository) {
-			if( repository ) {
+		$scope.toggleActive = function ( repository ) {
+			if (repository) {
 				repository.isActive = !repository.isActive;
-				repository.$update(function() {
+				repository.$update(function () {
 					$location.path('repositories');
-				}, function(errorResponse) {
+				}, function ( errorResponse ) {
 					$scope.error = errorResponse.data.message;
 				});
 			}
 		};
 
 		// Remove existing Repository
-		$scope.remove = function(repository) {
-			if ( repository ) { 
+		$scope.remove = function ( repository ) {
+			if (repository) {
 				repository.$remove();
 
 				for (var i in $scope.repositories) {
@@ -83,39 +83,49 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 					}
 				}
 			} else {
-				$scope.repository.$remove(function() {
+				$scope.repository.$remove(function () {
 					$location.path('repositories');
 				});
 			}
 		};
 
 		// Update existing Repository
-		$scope.update = function() {
+		$scope.update = function () {
 			var repository = $scope.repository;
 
-			repository.$update(function() {
+			repository.$update(function () {
 				$location.path('repositories');
-			}, function(errorResponse) {
+			}, function ( errorResponse ) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
 
-		$scope.beginTranslation = function() {
-			new Translations().$save(function(result) {
+		$scope.beginTranslation = function () {
+			new Translations().$save(function ( result ) {
 				$location.path('translations/' + result.id);
-			}, function(error) {
+			}, function ( error ) {
 				$scope.error = 'Could not begin export process: ' + JSON.stringify(error);
 			});
 		};
 
 		// Find a list of Repositories
-		$scope.find = function() {
-			$scope.repositories = Repositories.query({'search': this.searchTerm, 'filter': this.filter});
+		$scope.find = function () {
+			var searchQuery = {};
+
+			if(this.searchTerm){
+				searchQuery.name = this.searchTerm;
+			}
+
+			if(this.filterIsActive){
+				searchQuery.isActive = this.filterIsActive;
+			}
+
+			$scope.repositories = Repositories.query(searchQuery);
 		};
 
 		// Find existing Repository
-		$scope.findOne = function() {
-			$scope.repository = Repositories.get({ 
+		$scope.findOne = function () {
+			$scope.repository = Repositories.get({
 				repositoryId: $stateParams.repositoryId
 			});
 		};
