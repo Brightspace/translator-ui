@@ -6,6 +6,7 @@ machine:
 
 dependencies:
   pre:
+    - npm run bundle
     - /bin/bash ./scripts/artifactory-login.sh $ARTIFACTORY_USER $ARTIFACTORY_PASS $ARTIFACTORY_EMAIL
     - sudo /bin/bash ./scripts/install-docker-compose.sh
     - docker pull d2lartifacts-docker-dockerv2-local.artifactoryonline.com/foundations-translator/backend:latest
@@ -14,8 +15,6 @@ dependencies:
     - node_modules
 
 deployment:
-  pre:
-    - npm run bundle
   staging:
     branch: master
     owner: Brightspace
