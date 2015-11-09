@@ -11,7 +11,7 @@ dependencies:
     - docker pull d2lartifacts-docker-dockerv2-local.artifactoryonline.com/foundations-translator/backend:latest
     - docker-compose up -d backend
   post:
-    - make
+    - make build-prod
   cache_directories:
     - node_modules
 
