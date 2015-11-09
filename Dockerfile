@@ -1,20 +1,17 @@
-FROM node:0.12
+FROM nginx:latest
 
-WORKDIR /home/translator
+# Install dependencies
+RUN apt-get update && apt-get install ruby -y
+RUN gem install tiller
 
-RUN npm install -g phantomjs
-RUN npm install -g http-server
+# Remove the default Nginx configuration file
+RUN cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.original
 
-ADD package.json /home/translator/package.json
-RUN npm install
+RUN mkdir -p /var/www
+COPY ./public /var/www/public
 
-# Make everything available for start
-ADD . /home/translator
+EXPOSE 80
 
-# Make sure client tests can run in headless browser.
-ENV PHANTOMJS_BIN /usr/local/lib/node_modules/phantomjs/lib/phantom/bin/phantomjs
+ADD ./config/tiller /etc/tiller
 
-# Port 3001 for server
-EXPOSE 3001
-
-CMD ["npm", "start"]
+CMD ["/usr/local/bin/tiller" , "-v"]
