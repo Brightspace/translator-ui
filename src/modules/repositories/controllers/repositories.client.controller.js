@@ -6,6 +6,7 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 		$scope.isActive = true;
 		$scope.type = 'fra';
 		$scope.error = '';
+		$scope._ = _;
 
 		$scope.searchTerm = '';
 		$scope.filterIsActive = '';
@@ -131,19 +132,19 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 		};
 
 		$scope.repositoryExportsLastExport = function ( exports ) {
-			if(exports.length){
-				return null;
+			if(exports.length <= 0){
+				return 'never';
 			}
 
-			var sentExports = _.filter(exports, function(item){
+			var sentExports = $scope._.filter(exports, function(item){
 				return item.status === 'sent';
 			});
 
 			if(sentExports.length <= 0){
-				return null;
+				return 'never';
 			} else {
-				var sortedExports = _.sortBy(sentExports, 'started');
-				var lastExport = _.last(sortedExports);
+				var sortedExports = $scope._.sortBy(sentExports, 'started');
+				var lastExport = $scope._.last(sortedExports);
 				return lastExport.started;
 			}
 		}

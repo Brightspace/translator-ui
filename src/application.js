@@ -9,9 +9,7 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 
 //Setup lodash factory
 angular.module(ApplicationConfiguration.applicationModuleName)
-		.factory('_', function($window) {
-			return $window._;
-		});
+		.constant('_', _);
 
 // Setting HTML5 Location Mode
 angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
