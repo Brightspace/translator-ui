@@ -2,7 +2,7 @@
   "name": "translator-ui",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "src/application.js",
   "scripts": {
     "bundle": "browserify --entry ./src/application.js --outfile ./public/js/index.js -t envify",
     "start": "npm run bundle && npm run test && http-server",
@@ -17,5 +17,13 @@
     "karma": "^0.13.11",
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "lodash-compat": "^3.10.1",
+    "moment": "^2.10.6"
+  },
+  "browser": {
+    "lodash": "lodash-compat"
   }
 }

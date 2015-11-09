@@ -1,11 +1,13 @@
 'use strict';
 
 // Repositories controller
-angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories', 'Translations',
-	function ( $scope, $stateParams, $location, Repositories, Translations ) {
+angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories', 'Translations', '_', 'moment',
+	function ( $scope, $stateParams, $location, Repositories, Translations, _, moment ) {
 		$scope.isActive = true;
 		$scope.type = 'fra';
 		$scope.error = '';
+		$scope._ = _;
+		$scope.moment = moment;
 
 		$scope.searchTerm = '';
 		$scope.filterIsActive = '';
@@ -112,11 +114,11 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 		$scope.find = function () {
 			var searchQuery = {};
 
-			if(this.searchTerm){
+			if (this.searchTerm) {
 				searchQuery.name = this.searchTerm;
 			}
 
-			if(this.filterIsActive){
+			if (this.filterIsActive) {
 				searchQuery.isActive = this.filterIsActive;
 			}
 
@@ -128,6 +130,29 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 			$scope.repository = Repositories.get({
 				repositoryId: $stateParams.repositoryId
 			});
+		};
+
+		$scope.repositoryExportsLastExport = function ( exports ) {
+			if(exports.length <= 0){
+				return 'never';
+			}
+
+			var sentExports = $scope._.filter(exports, function(item){
+				return item.status === 'sent';
+			});
+
+			if(sentExports.length <= 0){
+				return 'never';
+			} else {
+				var sortedExports = $scope._.sortBy(sentExports, 'started');
+				var lastExport = $scope._.last(sortedExports);
+				return lastExport.started;
+			}
+		};
+
+		$scope.formatDate = function(date){
+			var dateObj = moment(date).fromNow();
+			return dateObj;
 		};
 	}
 ]);
