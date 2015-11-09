@@ -1,0 +1,6 @@
+backend:
+  image: d2lartifacts-docker-dockerv2-local.artifactoryonline.com/foundations-translator/backend:latest
+  net: "host"
+  environment:
+    - MONGODB_URL=mongodb://localhost/test
+    - REDIS_URL=redis://localhost
