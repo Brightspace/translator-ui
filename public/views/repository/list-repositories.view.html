@@ -93,7 +93,9 @@
                         <dt>Path to language file</dt>
                         <dd>{{repository.languagePath[0]}}</dd>
                         <dt>Last Diffed:</dt>
-                        <dd>{{repositoryExportsLastExport(repository.exports)}}</dd>
+                        <dd>
+                            {{formatDate(repositoryExportsLastExport(repository.exports))}}
+                        </dd>
                     </dl>
 
                 <span data-ng-class="{'text-danger': !repository.isActive, 'ng-hide': repository.isActive}">

@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var moment = require('moment');
 
 var ApplicationConfiguration = require('./config');
 
@@ -10,6 +11,10 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 //Setup lodash factory
 angular.module(ApplicationConfiguration.applicationModuleName)
 		.constant('_', _);
+
+//Setup moment factory
+angular.module(ApplicationConfiguration.applicationModuleName)
+		.constant('moment', moment);
 
 // Setting HTML5 Location Mode
 angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',

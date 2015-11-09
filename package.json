@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "lodash": "^3.10.1",
-    "lodash-compat": "^3.10.1"
+    "lodash-compat": "^3.10.1",
+    "moment": "^2.10.6"
   },
   "browser": {
     "lodash": "lodash-compat"

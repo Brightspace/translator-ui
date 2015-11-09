@@ -1,12 +1,13 @@
 'use strict';
 
 // Repositories controller
-angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories', 'Translations', '_',
-	function ( $scope, $stateParams, $location, Repositories, Translations, _ ) {
+angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories', 'Translations', '_', 'moment',
+	function ( $scope, $stateParams, $location, Repositories, Translations, _, moment ) {
 		$scope.isActive = true;
 		$scope.type = 'fra';
 		$scope.error = '';
 		$scope._ = _;
+		$scope.moment = moment;
 
 		$scope.searchTerm = '';
 		$scope.filterIsActive = '';
@@ -147,7 +148,11 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 				var lastExport = $scope._.last(sortedExports);
 				return lastExport.started;
 			}
-		}
-		;
+		};
+
+		$scope.formatDate = function(date){
+			var dateObj = moment(date).fromNow();
+			return dateObj;
+		};
 	}
 ]);
