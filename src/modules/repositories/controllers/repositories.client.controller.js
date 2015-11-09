@@ -1,8 +1,8 @@
 'use strict';
 
 // Repositories controller
-angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories', 'Translations',
-	function ( $scope, $stateParams, $location, Repositories, Translations ) {
+angular.module('repositories').controller('RepositoriesController', ['$scope', '$stateParams', '$location', 'Repositories', 'Translations', '_',
+	function ( $scope, $stateParams, $location, Repositories, Translations, _ ) {
 		$scope.isActive = true;
 		$scope.type = 'fra';
 		$scope.error = '';
@@ -112,11 +112,11 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 		$scope.find = function () {
 			var searchQuery = {};
 
-			if(this.searchTerm){
+			if (this.searchTerm) {
 				searchQuery.name = this.searchTerm;
 			}
 
-			if(this.filterIsActive){
+			if (this.filterIsActive) {
 				searchQuery.isActive = this.filterIsActive;
 			}
 
@@ -129,5 +129,24 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 				repositoryId: $stateParams.repositoryId
 			});
 		};
+
+		$scope.repositoryExportsLastExport = function ( exports ) {
+			if(exports.length){
+				return null;
+			}
+
+			var sentExports = _.filter(exports, function(item){
+				return item.status === 'sent';
+			});
+
+			if(sentExports.length <= 0){
+				return null;
+			} else {
+				var sortedExports = _.sortBy(sentExports, 'started');
+				var lastExport = _.last(sortedExports);
+				return lastExport.started;
+			}
+		}
+		;
 	}
 ]);
