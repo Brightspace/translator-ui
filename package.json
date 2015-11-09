@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/application.js",
   "scripts": {
-    "bundle": "browserify --entry ./src/application.js --outfile ./public/js/index.js -t envify",
+    "bundle": "node_modules/browserify/bin/cmd.js --entry ./src/application.js -t envify --outfile ./public/js/index.js",
+    "bundle-prod": "node_modules/browserify/bin/cmd.js --entry ./src/application.js -t envify | node_modules/uglifyjs/bin/uglifyjs > ./public/js/index.js",
     "start": "npm run bundle && npm run test && http-server",
     "test": "karma start"
   },
@@ -13,6 +14,7 @@
   "devDependencies": {
     "browserify": "^11.2.0",
     "envify": "^3.4.0",
+    "uglifyjs": "^2.4.10",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.11",
     "karma-jasmine": "^0.3.6",
