@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/application.js",
   "scripts": {
-    "bundle": "node_modules/browserify/bin/cmd.js --entry ./src/application.js -t envify --outfile ./public/js/index.js",
-    "bundle-prod": "node_modules/browserify/bin/cmd.js --entry ./src/application.js -t envify | node_modules/uglifyjs/bin/uglifyjs > ./public/js/index.js",
+    "bundle": "browserify --entry ./src/application.js -t envify --outfile ./public/js/index.js",
+    "bundle-prod": "browserify --entry ./src/application.js -t envify | uglifyjs > ./public/js/index.js",
     "start": "npm run bundle && npm run test && http-server",
     "test": "karma start"
   },
