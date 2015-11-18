@@ -135,16 +135,8 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 		$scope.repositoryExportsLastExport = function ( exports ) {
 			if(exports.length <= 0){
 				return 'never';
-			}
-
-			var sentExports = $scope._.filter(exports, function(item){
-				return item.status === 'sent';
-			});
-
-			if(sentExports.length <= 0){
-				return 'never';
 			} else {
-				var sortedExports = $scope._.sortBy(sentExports, 'started');
+				var sortedExports = $scope._.sortBy(exports, 'started');
 				var lastExport = $scope._.last(sortedExports);
 				return lastExport.started;
 			}
