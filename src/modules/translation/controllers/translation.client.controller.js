@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('translation').controller('TranslationController', ['$scope', '$http', '$stateParams', '$location', 'Translations', 'Upload',
-	function($scope, $http, $stateParams, $location, Translations, Upload) {
+angular.module('translation').controller('TranslationController', ['$scope', '$http', '$stateParams', '$location', 'Repositories', 'Translations', 'Upload',
+	function($scope, $http, $stateParams, $location, Repositories, Translations, Upload) {
 
 		$scope.translationPageTitle = '';
 		$scope.token = {};
@@ -58,6 +58,15 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 			}
 		};
 
+		$scope.findAll = function() {
+			var list = Translations.query(function() {
+				$scope.translations = list;
+			}, function(error) {
+				$scope.error = error;
+			})
+		};
+
+
 		$scope.findOne = function() {
 			if(!$stateParams.tokenId) {
 				return;
@@ -75,6 +84,16 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 				if(updatedToken.status !== $scope.token.status) {
 					$scope.token = updatedToken;
 					$scope.translationPageTitle = getTranslationPageTitle();
+				}
+
+				if(updatedToken.repositories) {
+					updatedToken.repositories.forEach( function(repo, i) {
+						Repositories.get({
+							repositoryId: repo.id
+						}, function(r) {
+							$scope.token.repositories[i].name = r.name;
+						});
+					});
 				}
 
 				if($scope.isActive()) {

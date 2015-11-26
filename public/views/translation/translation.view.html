@@ -20,13 +20,17 @@
 				</div>
 
 				<div data-ng-show="token.status=='sent'">
-					<a class="btn btn-primary" ng-href="{{getDownload()}}">Download Export Package...</a>
+					<a class="btn btn-primary" ng-href="{{getDownload()}}">Download Translatable Package</a>
 				</div>
 
 				<div data-ng-show="token.status=='sent'">
 					<button type="file"
 							class="btn btn-primary"
-							ngf-select="beginImport($file)" >Import a Translation Package</button>
+							ngf-select="beginImport($file)" >Import Translated Package</button>
+				</div>
+
+				<div ng-repeat="repo in token.repositories">
+					<a href="/#!/repositories/{{repo.id}}/edit">{{repo.name}}</a>: {{repo.status}}
 				</div>
 			</div>
 		</div>

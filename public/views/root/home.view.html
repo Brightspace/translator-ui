@@ -11,5 +11,16 @@
 				Gather, package, translate, done!
 			</p>
 		</div>
+		<section data-ng-controller="TranslationController" data-ng-init="findAll()">
+			<div ng-repeat="trns in translations">
+				<a href="/#!/translations/{{trns.id}}">{{trns.id}}</a>: {{trns.status}}
+			</div>
+			<div>
+				<div class="alert alert-danger" data-ng-show="error">
+					<strong>Error!</strong>
+					{{error}}
+				</div>
+			</div>
+		</section>
 	</div>
 </section>
