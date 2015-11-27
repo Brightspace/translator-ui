@@ -4,7 +4,7 @@
             <h1>Repositories</h1>
         </div>
         <div class="col-md-6 pull-right export-translations">
-            <a class="btn btn-primary" ng-click="beginTranslation()">Create Translatable Package</a>
+            <a class="btn btn-primary" ng-click="beginTranslation()">Create Language Term Package</a>
         </div>
         <div class="pull-clear"></div>
     </div>
@@ -99,22 +99,12 @@
                     </dl>
 
                 <span data-ng-class="{'text-danger': !repository.isActive, 'ng-hide': repository.isActive}">
-                    <strong>This repository is inactive and will not be checked for changes to languages.</strong>
+                    <strong>This repository is inactive. It will not be included in language term packages.</strong>
                 </span>
                 <span data-ng-class="{'text-success': repository.isActive, 'ng-hide': !repository.isActive}">
-                    <strong>This repository is active. Changes to the language file(s) will be checked regularly.</strong>
+                    <strong>This repository is active. It will be included in language term packages.</strong>
                 </span>
                 </div>
-                <!--
-                <div class="panel-footer">
-                    <small class="list-group-item-text">
-                        Posted on
-                        <span data-ng-bind="repository.created | date:'medium'"></span>
-                        by
-                        <span data-ng-bind="repository.user.displayName"></span>
-                    </small>
-                </div>
-                -->
             </div>
         </div>
         <div class="alert alert-warning text-center" data-ng-hide="!repositories.$resolved || repositories.length">

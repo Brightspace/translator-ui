@@ -1,5 +1,6 @@
-<section>
-	<div class="jumbotron text-center">
+<section data-ng-controller="TranslationController" data-ng-init="findAll()">
+	<div class="container text-center">
+		<br>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
 				<img class="img-responsive text-center" src="img/brand/logo.png" />
@@ -11,16 +12,25 @@
 				Gather, package, translate, done!
 			</p>
 		</div>
-		<section data-ng-controller="TranslationController" data-ng-init="findAll()">
-			<div ng-repeat="trns in translations">
-				<a href="/#!/translations/{{trns.id}}">{{trns.id}}</a>: {{trns.status}}
+		<br>
+		<div class="row">
+			<table class="table table-bordered">
+				<th>Created Date</th>
+				<th>Translation</th>
+				<th>Status</th>
+				<tr ng-repeat="trns in translations | orderBy:'-createdAt'" ng-class="{danger:(trns.status=='error')}">
+					<td>{{trns.createdAt | date:'MMM d y H:mm'}}</td>
+					<td><a href="/#!/translations/{{trns.id}}">{{trns.id}}</a></td>
+					<td>{{trns.status}}</td>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<div class="row">
+			<div class="alert alert-danger" data-ng-show="error">
+				<strong>Error!</strong>
+				{{error}}
 			</div>
-			<div>
-				<div class="alert alert-danger" data-ng-show="error">
-					<strong>Error!</strong>
-					{{error}}
-				</div>
-			</div>
-		</section>
+		</div>
 	</div>
 </section>

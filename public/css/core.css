@@ -33,3 +33,7 @@ fieldset .row {
 .pull-clear {
 	float: none;
 }
+
+.parag {
+	white-space: pre-line;
+}
