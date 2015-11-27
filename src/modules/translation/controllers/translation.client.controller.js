@@ -6,23 +6,65 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 		$scope.translationPageTitle = '';
 		$scope.token = {};
 
-		var getTranslationPageTitle = function() {
-			if(!$scope.token) {
-				return 'Token Not Found';
-			}
-
+		var getTranslationTitle = function() {
 			switch($scope.token.status) {
 				case 'error':
 					return 'Translation Failed';
-
-				case 'cancelled':
-					return 'Translation Cancelled';
-
-				case 'done':
-					return 'Translation Completed';
-
+				case 'sent':
+					return 'Translation Packaged';
+				case 'exporting':
+					return 'Packaging...';
+				case 'exported':
+					return 'Translation Exported';
+				case 'importing':
+					return 'Applying...'
+				case 'imported':
+					return 'Translation Imported';
 				default:
-					return 'Exporting Package...';
+					return 'Processing...';
+			}
+		};
+
+		var getRepositoryAdvice = function() {
+			var imported = $scope.token.repositories.filter( function(r) {
+				return r.status === 'imported'
+			}).length;
+			var packaged = $scope.token.repositories.filter( function(r) {
+				return r.status === 'exported';
+			}).length;
+
+			if( imported ) {
+				return 'Any repositories with a status of "imported" have had their translated language terms applied to their language files.\n' +
+					'A request has been made to the developers to accept these changes into their source repositories.\n' +
+					'Language files in failed repositories may have been partially imported. Please contact the repository administrator.';
+			}
+
+			if( packaged ) {
+				return 'Repositories without a status of "exported" failed to export.\n' +
+					'No repositories were exported, and no language file package has been created.\n' +
+					'Disable or reconfigure any repository with an error, or contact the repository administrator.';
+			}
+
+			return 'The translation step you attempted failed entirely for every repository.\n' +
+				'If you had tried to create a language term package, no repository has been exported.\n' +
+				'If you had tried to import a translated package, the repositories may have been partially imported.\n' +
+				'Please review your registered repositories and contact the repository administrators.';
+		};
+
+		var getTranslationAdvice = function() {
+			switch($scope.token.status) {
+				case 'sent':
+					return 'A package of new and modified language terms is ready for download.';
+				case 'exported':
+					return 'Language term differences since the last export have been saved to the server.';
+				case 'imported':
+					return 'Translated language terms have been applied to their language files.\n' +
+						'A request has been made to the developers to accept these changes into their source repositories.';
+				case 'error':
+					return 'There was a problem with at least one repository:\n' +
+						getRepositoryAdvice();
+				default:
+					return undefined;
 			}
 		};
 
@@ -66,6 +108,14 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 			})
 		};
 
+		var updateTranslationPageStatus = function( token ) {
+			$scope.token = token || {
+					status: 'error'
+				};
+
+			$scope.translationPageTitle = getTranslationTitle();
+			$scope.translationPageAdvice = getTranslationAdvice();
+		};
 
 		$scope.findOne = function() {
 			if(!$stateParams.tokenId) {
@@ -81,9 +131,8 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 					return;
 				}
 
-				if(updatedToken.status !== $scope.token.status) {
-					$scope.token = updatedToken;
-					$scope.translationPageTitle = getTranslationPageTitle();
+				if(updatedToken.status == 'error') {
+					$scope.error = updatedToken.error || 'There was some sort of problem with the translation.';
 				}
 
 				if(updatedToken.repositories) {
@@ -94,6 +143,10 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 							$scope.token.repositories[i].name = r.name;
 						});
 					});
+				}
+
+				if(updatedToken.status !== $scope.token.status) {
+					updateTranslationPageStatus( updatedToken );
 				}
 
 				if($scope.isActive()) {
