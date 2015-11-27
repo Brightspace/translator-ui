@@ -17,7 +17,7 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 				case 'exported':
 					return 'Translation Exported';
 				case 'importing':
-					return 'Applying...'
+					return 'Applying...';
 				case 'imported':
 					return 'Translation Imported';
 				default:
