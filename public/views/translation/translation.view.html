@@ -35,7 +35,7 @@
 					<th>Repository</th>
 					<th>Status</th>
 					<tr ng-repeat="repo in token.repositories"
-						ng-class="{danger:(repo.status!=='packaged' && repo.status!=='imported' && repo.status!=='exported')}">
+						ng-class="{danger:(repo.status!=='packaged' && repo.status!=='imported' && repo.status!=='exported' && repo.status!=='exporting')}">
 						<td><a href="/#!/repositories/{{repo.id}}/edit">{{repo.name}}</a></td>
 						<td>{{repo.status}}</td>
 					</tr>

@@ -103,7 +103,9 @@ angular.module('repositories').controller('RepositoriesController', ['$scope', '
 		};
 
 		$scope.beginTranslation = function () {
-			new Translations().$save(function ( result ) {
+			new Translations({
+				translator: $scope.email
+			}).$save(function ( result ) {
 				$location.path('translations/' + result.id);
 			}, function ( error ) {
 				$scope.error = 'Could not begin export process: ' + JSON.stringify(error);
