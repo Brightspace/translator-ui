@@ -4,8 +4,9 @@
 angular.module('repositories')
     .factory('Repositories', ['$resource', function($resource) {
         return $resource(
-          (process.env.BACKEND_URL || '/api') + '/repositories/:repositoryId',
-            { repositoryId: '@id' },
+          (process.env.BACKEND_URL || '/api') + '/repositories/:repositoryId', {
+                repositoryId: '@id'
+            },
             { update: { method: 'PUT' } }
         );
     }]);

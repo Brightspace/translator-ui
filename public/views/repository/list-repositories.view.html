@@ -1,10 +1,16 @@
 <section data-ng-controller="RepositoriesController" data-ng-init="find()">
     <div class="row">
-        <div class="col-md-6 pull-left">
+        <div class="col-md-12 pull-left">
             <h1>Repositories</h1>
         </div>
-        <div class="col-md-6 pull-right export-translations">
-            <a class="btn btn-primary" ng-click="beginTranslation()">Create Language Term Package</a>
+        <div class="col-md-12 pull-left">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="form-control" id="email" type="text" data-ng-model="email" placeholder="email for notifications"/>
+                </div>
+                <a class="btn btn-primary" ng-click="beginTranslation()">Create Language Term Package</a>
+            </div>
         </div>
         <div class="pull-clear"></div>
     </div>
