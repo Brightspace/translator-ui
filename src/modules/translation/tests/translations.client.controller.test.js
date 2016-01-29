@@ -154,8 +154,7 @@
 
 				$stateParams.tokenId = '55454c4c4f48454c4c4f4845';
 
-				var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder;
-				var uploadFile = new BlobBuilder().getBlob();
+				var uploadFile = new Blob();
 
 				$httpBackend.expectPOST(/translations\/([0-9a-fA-F]{24})$/).respond(sampleTranslation);
 
