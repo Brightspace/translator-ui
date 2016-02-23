@@ -1,7 +1,12 @@
 <section data-ng-controller="TranslationController" data-ng-init="findOne()">
 	<div class="container">
 		<h1>{{translationPageTitle}}</h1>
-		<h4>{{token.id}}</h4>
+		<h4>
+			{{token.id}}
+			<a alt="Delete" data-ng-click="deleteTranslation()">
+				<span class="glyphicon glyphicon-trash"></span>
+			</a>
+		</h4>
 	</div>
 
 	<div class="container">
