@@ -100,12 +100,22 @@ angular.module('translation').controller('TranslationController', ['$scope', '$h
 			}
 		};
 
+		$scope.deleteTranslation = function () {
+			Translations.delete({
+				tokenId: $stateParams.tokenId
+			}, function() {
+				$location.path('/#!/');
+			}, function(error) {
+				$scope.error = error;
+			});
+		};
+
 		$scope.findAll = function() {
 			var list = Translations.query(function() {
 				$scope.translations = list;
 			}, function(error) {
 				$scope.error = error;
-			})
+			});
 		};
 
 		var updateTranslationPageStatus = function( token ) {
